@@ -12,9 +12,20 @@
   scroll-behavior: smooth;
 }
 
-* { box-sizing: border-box; }
-body { min-width: 320px; margin: 0; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; }
+/* Di dalam @layer base agar utility Tailwind (warna teks, ukuran font) tetap bisa menimpanya. */
+@layer base {
+  * { box-sizing: border-box; }
+  body { min-width: 320px; margin: 0; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; }
+}
 .motorcycle-art { width: 100%; max-width: 600px; height: auto; padding: 5%; }
 ::selection { color: #18181a; background: #dfff00; }
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  :root, body, main { background: #fff !important; color: #18181a; }
+  .no-print { display: none !important; }
+  .print-area { margin: 0 !important; border-radius: 0 !important; background: #fff !important; }
+  .print-area > div { padding: 0 !important; }
+}

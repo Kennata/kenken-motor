@@ -32,7 +32,8 @@ function LoginPage() {
       if (data.user.role === 'owner') {
         window.location.assign('/dashboard')
       } else {
-        setSuccess('Berhasil masuk sebagai ' + data.user.name + '. Dashboard ringkasan saat ini tersedia untuk owner.')
+        // Dashboard khusus Owner; Mekanik diarahkan ke daftar spare part.
+        window.location.assign('/inventory/spare-parts')
       }
     } catch (requestError) {
       const response = requestError.response?.data

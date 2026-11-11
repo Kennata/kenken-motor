@@ -24,6 +24,29 @@ function formatRupiah(value) {
   return `Rp ${new Intl.NumberFormat('id-ID').format(amount)}`
 }
 
+// Tautan submenu sidebar ke halaman modul.
+const sidebarLinks = {
+  'inventory:Daftar Spare Part': '/inventory/spare-parts',
+  'inventory:Stok Masuk': '/inventory/stock-in',
+  'inventory:Stok Keluar': '/inventory/stock-out',
+  'inventory:Stock Opname': '/inventory/stock-opname',
+  'procurement:Supplier': '/procurement/suppliers',
+  'procurement:Purchase Order': '/procurement/purchase-orders',
+  'procurement:Penerimaan Barang': '/procurement/goods-receipts',
+  'bengkel:Data Kendaraan': '/bengkel/vehicles',
+  'bengkel:Work Order': '/bengkel/work-orders',
+  'bengkel:Penggunaan Spare Part': '/bengkel/spare-part-usage',
+  'shipping:Pesanan Kirim': '/shipping/orders',
+  'shipping:Status Pengiriman': '/shipping/status',
+  'reports:Stok': '/reports/stock',
+  'reports:Pembelian': '/reports/purchases',
+  'reports:Penggunaan Spare Part': '/reports/spare-part-usage',
+  'reports:Supplier': '/reports/suppliers',
+  'settings:User & Role': '/settings/users',
+  'settings:Minimum Stock': '/settings/minimum-stock',
+  'settings:Audit Log': '/settings/audit-logs',
+}
+
 function SidebarAccordion({ id, title, icon, items, isOpen, onToggle }) {
   return (
     <div>
@@ -35,7 +58,7 @@ function SidebarAccordion({ id, title, icon, items, isOpen, onToggle }) {
       <div id={`sidebar-${id}`} aria-hidden={!isOpen} className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
         <div className="overflow-hidden">
           <div className={`space-y-1 pl-[48px] text-[11px] text-[#77767e] transition-transform duration-300 ${isOpen ? 'translate-y-0' : '-translate-y-2'}`}>
-            {items.map((item) => <p key={item} tabIndex={isOpen ? 0 : -1} className="py-2">{item}</p>)}
+            {items.map((item) => <a key={item} href={sidebarLinks[`${id}:${item}`] || '#'} tabIndex={isOpen ? 0 : -1} className="block py-2 transition-colors hover:text-white">{item}</a>)}
           </div>
         </div>
       </div>
