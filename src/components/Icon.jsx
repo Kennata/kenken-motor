@@ -20,6 +20,7 @@ function Icon({ name, className = 'h-5 w-5' }) {
     chevronRight: <><path d="m9 6 6 6-6 6"/></>,
     calendar: <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></>,
     printer: <><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></>,
+    download: <><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></>,
     check: <><path d="m5 12 5 5 9-10"/></>,
     alert: <><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17.5v.01"/></>,
     info: <><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.01"/></>,
