@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import AppLayout from '../../components/layout/AppLayout'
 import Icon from '../../components/Icon'
 import { Alert, Badge, Button, Card, ConfirmDialog, DataTable } from '../../components/ui'
@@ -7,7 +7,7 @@ import api from '../../lib/api'
 import { errorMessage, objectFrom } from '../../lib/apiHelpers'
 import { formatDate, formatDateTime, formatNumber, formatRupiah } from '../../lib/format'
 import { poStatus, poTotal } from '../../lib/purchaseOrderStatus'
-import { navigate } from '../../lib/router'
+import { navigate, useLocation } from '../../lib/router'
 
 const STEPS = [
   { key: 'draft', label: 'Draft' },
@@ -37,6 +37,9 @@ function StatusSteps({ status }) {
 
 // FR-06: detail, perubahan status, dan pencetakan purchase order.
 function PurchaseOrderDetailPage({ id }) {
+  const { search } = useLocation()
+  const autoPrint = search.get('print') === '1'
+  const autoPrintStarted = useRef(false)
   const [order, setOrder] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -59,6 +62,13 @@ function PurchaseOrderDetailPage({ id }) {
     const timer = window.setTimeout(load, 0)
     return () => window.clearTimeout(timer)
   }, [load])
+
+  useEffect(() => {
+    if (loading || !order || !autoPrint || autoPrintStarted.current) return undefined
+    autoPrintStarted.current = true
+    const timer = window.setTimeout(() => window.print(), 500)
+    return () => window.clearTimeout(timer)
+  }, [loading, order, autoPrint])
 
   async function runAction() {
     setBusy(true)

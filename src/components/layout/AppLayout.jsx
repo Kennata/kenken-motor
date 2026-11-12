@@ -123,7 +123,7 @@ function NotificationBell({ items, count }) {
   )
 }
 
-function AppLayout({ title, subtitle = 'Berikut ringkasan bengkel hari ini.', actions, roles = ['owner'], children }) {
+function AppLayout({ title, subtitle = 'Berikut ringkasan bengkel hari ini.', actions, toolbar, roles = ['owner'], children }) {
   const { pathname } = useLocation()
   const [user, setUser] = useState(getStoredUser)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -186,6 +186,7 @@ function AppLayout({ title, subtitle = 'Berikut ringkasan bengkel hari ini.', ac
               <div><h1 className="text-[23px] font-semibold tracking-[-.04em]">{title}</h1><p className="mt-1 text-[11px] text-[#77767e]">{subtitle}</p></div>
             </div>
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              {toolbar}
               <NotificationBell items={lowStock.items} count={lowStock.count} />
               {allowed && actions}
             </div>
